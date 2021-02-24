@@ -1,0 +1,136 @@
+<!Doctype html>
+<html lang="ko">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <!--  가로폭을 디바이스의 가로폭에 맞추고 초기 화면 배율을 100%로 설정  -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
+    <!-- JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+    <!-- 구글폰트 -->
+    <link href="https://fonts.googleapis.com/css?family=Stylish&display=swap" rel="stylesheet">
+    <title>CMS솔루션</title>
+    <!-- style -->
+    <style>
+        html, body {
+            margin: 0; /* 화면 외곽에 여백 없애기 꽉 채우기 */
+        }
+        section {
+            background-color: bisque;
+            height: calc(100vh - 60px); /* 남은 여백만큼 높이 주기 */
+            display: flex;
+            flex-direction: row;
+        }
+        aside {
+            background-color: #cccccc;
+            width: 200px;
+            overflow: auto;
+        }
+        .aside_warp {
+            padding: 15px;
+        }
+        article {
+            background-color: #D3E7E9;
+            width: calc(100vw - 200px);
+            padding: 15px;
+        }
+    </style>
+    <script>
+    </script>
+</head>
+<body>
+<!--여기 네이게이션 바 부분에 이미지 텍스트 이미지(아이콘)을 넣으려고 하는데 display 정렬이 여럽습니다. ㅠㅠ-->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/index.html">
+        <img src="../static/mainlog.png" width="40" height="40" alt="logo">
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02"
+            aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li class="nav-item active"><a class="nav-link" href="#">장비등록</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">장비삭제</a></li>
+            <li class="nav-item"><a class="nav-link disabled" href="#">config갱신</a></li>
+            <li class="nav-item"><a class="nav-link disabled" href="#">Config비교</a></li>
+            <li class="nav-item"><a class="nav-link disabled" href="#">Remark</a></li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Icon1</button>
+            <button class="btn btn-outline-success my-2 my-sm-0" style="margin-left: 8px" type="submit">Icon2</button>
+        </form>
+    </div>
+</nav>
+<section>
+    <aside class="aside_warp">
+        <h5>Server list</h5>
+        <ul>
+            <li>A_server</li>
+            <li>B_Server</li>
+            <li>C_server</li>
+            <li>C_server</li>
+            <li>C_server</li>
+            <li>C_server</li>
+            <li>C_server</li>
+            <li>C_server</li>
+            <li>C_server</li>
+            <li>C_server</li>
+            <li>C_server</li>
+            <li>C_server</li>
+            <li>C_server</li>
+            <li>C_server</li>
+            <li>C_server</li>
+            <li>C_server</li>
+            <li>C_server</li>
+            <li>C_server</li>
+            <li>C_server</li>
+            <li>C_server</li>
+            <li>C_server</li>
+            <li>C_server</li>
+            <li>C_server</li>
+            <li>C_server</li>
+            <li>C_server</li>
+            <li>C_server</li>
+            <li>C_server</li>
+            <li>C_server</li>
+            <li>C_server</li>
+            <li>C_server</li>
+            <li>C_server</li>
+            <li>C_server</li>
+            <li>C_server</li>
+            <li>C_server</li>
+            <li>C_server</li>
+            <li>C_server</li>
+            <li>C_server</li>
+            <li>C_server</li>
+            <li>C_server</li>
+            <li>C_server</li>
+            <li>C_server</li>
+            <li>C_server</li>
+            <li>C_server</li>
+            <li>C_server</li>
+            <li>C_server</li>
+            <li>C_server</li>
+            <li>C_server</li>
+            <li>C_server</li>
+            <li>C_server</li>
+            <li>C_server</li>
+            <li>C_server</li>
+            <li>C_server</li>
+        </ul>
+    </aside>
+    <article>article</article>
+</section>
+</body>
+</html>
