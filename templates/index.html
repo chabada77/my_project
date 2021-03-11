@@ -2,20 +2,44 @@
 <html lang="ko">
 
     <head>
+        <!-- Required meta tags -->
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>골푸드</title>
-        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
               integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
               crossorigin="anonymous">
+
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+                integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+                crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+                integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+                crossorigin="anonymous"></script>
+
+        <title>골푸드</title>
 
         <style>
 
             #image_style {
                 display: block;
-                margin: 50px auto 30px auto;
+                margin: 20px auto 30px auto;
                 width: 400px;
+                border-radius: 20px;;
+            }
+
+            .input-wrap {
+                width: 400px;
+                margin: auto;
+            }
+
+            .golflist {
+                text-align: center;
+                margin: 30px;
             }
 
             .button_center {
@@ -23,39 +47,115 @@
                 justify-content: center;
                 align-items: center;
                 height: 50px;
+                margin: 10px auto;
             }
         </style>
 
         <script>
             $(document).ready(function () {
-                // index.html 로드가 완료되면 자동으로 showGolf() 함수를 호출합니다.
-                showGolf();
+                // index.html 로드가 완료되면 자동으로 showStar() 함수를 호출합니다.
+                showGolfood();
             });
 
-            function showGolf() {
-                $('').empty()
-                $.ajax({
-                    type: 'POST',
-                    url: '/golf/list',
-                    data: {},
-                    success: function (response) {
-                        if (response['result'] == 'success') {
-                            alert('장소검색성공')
-                        }
-                    }
-                })
+            function showGolfood() {
+
             }
 
+            // 코딩중
+
+            function showGloflist() {
+                let name = $("#golf-name").val();
+
+                if (name === '') {
+                    alert("주문자 이름을 입력해주세요")
+                } else {
+                    $.ajax({
+                        type: "GET",
+                        url: "/golf/list",
+                        data: {
+                            "golf_give": name,
+                            // "count_give": count,
+                            // "address_give": address,
+                            // "phone_give": phone
+                        },
+                        success: function (response) {
+                            if (response["result"] == "success") {
+                                alert(response["msg"]);
+                                window.location.reload();
+                            }
+                        }
+                    })
+                }
+            }
+
+
         </script>
+
     </head>
 
     <body>
+
         <div>
-            <img id="image_style" src="../static/golfoodlog.png" alt="log image">
-            <div class="button_center">
-                골프장명: <input id="golfname" type="text"/>
-                <button onclick="showGolf()" style="" type="button" class="btn btn-danger">검색</button>
+
+            <div>
+                <img id="image_style" src="../static/golfoodlog.png" alt="log image">
             </div>
+
+            <div class="input-wrap">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" id="golf-name" placeholder="골프장 명칭을 입력해 주세요"
+                           aria-label="Recipient's username"
+                           aria-describedby="basic-addon2">
+                    <div class="input-group-append">
+                        <button onclick="showGloflist()" class="btn btn-outline-secondary" type="button">검색</button>
+                    </div>
+                </div>
+
+                <div class="golflist" id="input-box" style="display:none">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">골프장</th>
+                            <th scope="col">주소</th>
+                            <th scope="col">URL</th>
+                            <th scope="col">선택</th>
+                        </tr>
+                        </thead>
+                        <tbody id="golflist-box">
+                        <tr>
+                            <td>골드CC</td>
+                            <td>경기도 이천시</td>
+                            <td>www.aaa.co.kr</td>
+                            <td>
+                                <form>
+                                    <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
+                                    <label for="vehicle1"></label><br>
+                                </form>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text">음식종류</label>
+                    </div>
+                    <select class="custom-select" id="order-count">
+                        <option selected>-------선호하는 음식 선택-------</option>
+                        <option value="1">한식</option>
+                        <option value="2">양식</option>
+                        <option value="3">일식</option>
+                        <option value="4">중식</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="button_center">
+                <button type="button" class="btn btn-danger">맛집찾기</button>
+            </div>
+
         </div>
     </body>
 
