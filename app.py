@@ -15,15 +15,13 @@ def home():
 
 
 # API 역할을 하는 부분
-@app.route('/golf/list', methods=['POST'])
+@app.route('/golf/list', methods=['GET'])
 def show_golf():
-
-    name_receive = request.form['name_golf']
-    golfs = db.golfood.find_one({'name': name_receive})
-
+    # name_receive = request.form['name_golf']
+    name_receive = request.args.get('name_golf')
+    golfs = list(db.golf.find({'name': {'$regex': name_receive}}, {'_id': False}))
     # 2. 성공하면 success 메시지와 함께 golf_list 목록을 클라이언트에 전달합니다.
     return jsonify({'result': 'success', 'golf_list': golfs})
-
 
 # @app.route('/api/like', methods=['POST'])
 # def like_star():
