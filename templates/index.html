@@ -1,16 +1,13 @@
 <!DOCTYPE html>
 <html lang="ko">
-
     <head>
         <!-- Required meta tags -->
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
               integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
               crossorigin="anonymous">
-
         <!-- Optional JavaScript -->
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -20,26 +17,22 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
                 integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
                 crossorigin="anonymous"></script>
-
         <title>골푸드</title>
-
         <style>
-
             #image_style {
                 display: block;
                 margin: 20px auto 30px auto;
-                width: 400px;
+                width: 500px;
                 border-radius: 20px;;
             }
-
-            .input-wrap {
-                width: 400px;
-                margin: auto;
-            }
-
             .golflist {
                 text-align: center;
-                margin: 30px;
+                /*margin: 10px;*/
+
+            }
+            .input-wrap {
+                width: 500px;
+                margin: auto;
             }
 
             .button_center {
@@ -50,65 +43,54 @@
                 margin: 10px auto;
             }
         </style>
-
         <script>
             $(document).ready(function () {
                 // index.html 로드가 완료되면 자동으로 showStar() 함수를 호출합니다.
             });
-
             // 코딩중
-
             function showGolflist() {
                 let name = $("#golf-name").val();
-
                 if (name === '') {
                     alert("골프장 이름을 입력해주세요")
                 } else {
                     $("#input-box").show()
+                    $('#golflist-box > tbody').empty()
                     $.ajax({
-                        type: "POST",
+                        type: "GET",
                         url: "/golf/list",
                         data: {'name_golf':name},
                         success: function (response) {
+                            console.log(response);
                             let golfs = response['golf_list']
                             for (let i = 0; i < golfs.length; i++) {
                                 let golf = golfs[i]
                                 let name = golf['name']
                                 let url = golf['url']
                                 let address = golf['address']
-
-                                let tempHtml = `<tbody id="golflist-box">
-                                                <tr>
-                                                    <td>"${name}"</td>
-                                                    <td>"${address}"</td>
-                                                    <td>"${url}"</td>
+                                let tempHtml = `<tr>
+                                                    <td>${name}</td>
+                                                    <td>${address}</td>
+                                                    <td><a href="${url}">${name}</a></td>
                                                     <td>
                                                         <form>
                                                             <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
-                                                            <label for="vehicle1"></label><br>
+                                                            <label for="vehicle1">체크</label>
                                                         </form>
                                                     </td>
-                                                </tr>
-                                                </tbody>`
-                                $('#input-box').append(tempHtml)
+                                                </tr>`
+                                $('#golflist-box').append(tempHtml)
                             }
                         }
                     });
                 }
             }
-
         </script>
-
     </head>
-
     <body>
-
         <div>
-
             <div>
                 <img id="image_style" src="../static/golfoodlog.png" alt="log image">
             </div>
-
             <div class="input-wrap">
                 <div class="input-group mb-3">
                     <input type="text" class="form-control" id="golf-name" placeholder="골프장 명칭을 입력해 주세요"
@@ -118,7 +100,6 @@
                         <button onclick="showGolflist()" class="btn btn-outline-secondary" type="button">검색</button>
                     </div>
                 </div>
-
                 <div class="golflist" id="input-box" style="display:none">
                     <table class="table">
                         <thead>
@@ -126,26 +107,24 @@
                             <th scope="col">골프장</th>
                             <th scope="col">주소</th>
                             <th scope="col">URL</th>
-                            <th scope="col">선택</th>
+                            <th scope="col">확인</th>
                         </tr>
                         </thead>
                         <tbody id="golflist-box">
-                        <tr>
-                            <td>골드CC</td>
-                            <td>경기도 이천시</td>
-                            <td>www.aaa.co.kr</td>
-                            <td>
-                                <form>
-                                    <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
-                                    <label for="vehicle1"></label><br>
-                                </form>
-                            </td>
-                        </tr>
+<!--                        <tr>-->
+<!--                            <td>골드CC</td>-->
+<!--                            <td>경기도 이천시</td>-->
+<!--                            <td>www.aaa.co.kr</td>-->
+<!--                            <td>-->
+<!--                                <form>-->
+<!--                                    <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">-->
+<!--                                    <label for="vehicle1"></label><br>-->
+<!--                                </form>-->
+<!--                            </td>-->
+<!--                        </tr>-->
                         </tbody>
                     </table>
                 </div>
-
-
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <label class="input-group-text">음식종류</label>
@@ -159,12 +138,9 @@
                     </select>
                 </div>
             </div>
-
             <div class="button_center">
                 <button type="button" class="btn btn-danger">맛집찾기</button>
             </div>
-
         </div>
     </body>
-
 </html>
