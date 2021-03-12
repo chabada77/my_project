@@ -54,40 +54,48 @@
         <script>
             $(document).ready(function () {
                 // index.html 로드가 완료되면 자동으로 showStar() 함수를 호출합니다.
-                showGolfood();
             });
-
-            function showGolfood() {
-
-            }
 
             // 코딩중
 
-            function showGloflist() {
+            function showGolflist() {
                 let name = $("#golf-name").val();
 
                 if (name === '') {
-                    alert("주문자 이름을 입력해주세요")
+                    alert("골프장 이름을 입력해주세요")
                 } else {
+                    $("#input-box").show()
                     $.ajax({
-                        type: "GET",
+                        type: "POST",
                         url: "/golf/list",
-                        data: {
-                            "golf_give": name,
-                            // "count_give": count,
-                            // "address_give": address,
-                            // "phone_give": phone
-                        },
+                        data: {'name_golf':name},
                         success: function (response) {
-                            if (response["result"] == "success") {
-                                alert(response["msg"]);
-                                window.location.reload();
+                            let golfs = response['golf_list']
+                            for (let i = 0; i < golfs.length; i++) {
+                                let golf = golfs[i]
+                                let name = golf['name']
+                                let url = golf['url']
+                                let address = golf['address']
+
+                                let tempHtml = `<tbody id="golflist-box">
+                                                <tr>
+                                                    <td>"${name}"</td>
+                                                    <td>"${address}"</td>
+                                                    <td>"${url}"</td>
+                                                    <td>
+                                                        <form>
+                                                            <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
+                                                            <label for="vehicle1"></label><br>
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                                </tbody>`
+                                $('#input-box').append(tempHtml)
                             }
                         }
-                    })
+                    });
                 }
             }
-
 
         </script>
 
@@ -107,7 +115,7 @@
                            aria-label="Recipient's username"
                            aria-describedby="basic-addon2">
                     <div class="input-group-append">
-                        <button onclick="showGloflist()" class="btn btn-outline-secondary" type="button">검색</button>
+                        <button onclick="showGolflist()" class="btn btn-outline-secondary" type="button">검색</button>
                     </div>
                 </div>
 
