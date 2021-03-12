@@ -15,14 +15,14 @@ def home():
 
 
 # API 역할을 하는 부분
-@app.route('/golf/list', methods=['GET'])
+@app.route('/golf/list', methods=['POST'])
 def show_golf():
-    # 1. db에서 golfood 목록 전체를 검색합니다.
-    # 참고) find({},{'_id':False}), sort()를 활용하면 굿!
-    golf_list = list(db.golfd.find({}, {'_id': False}))
+
+    name_receive = request.form['name_golf']
+    golfs = db.golfood.find_one({'name': name_receive})
 
     # 2. 성공하면 success 메시지와 함께 golf_list 목록을 클라이언트에 전달합니다.
-    return jsonify({'result': 'success', 'data': golf_list})
+    return jsonify({'result': 'success', 'golf_list': golfs})
 
 
 # @app.route('/api/like', methods=['POST'])
