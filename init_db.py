@@ -40,7 +40,7 @@ def scrap_golf():
 def address_to_latlng(address):
     import requests
     headers = {
-        'Authorization': '14e44457faa2e2f6e7c67e69b9d68832',
+        'Authorization': 'KakaoAK 14e44457faa2e2f6e7c67e69b9d68832',
     }
     response = requests.get(f'https://dapi.kakao.com/v2/local/search/address.json?query={address}', headers=headers)
     result = response.json()
