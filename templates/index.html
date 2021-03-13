@@ -25,17 +25,14 @@
                 width: 500px;
                 border-radius: 20px;;
             }
-
             .golflist {
                 text-align: center;
                 /*margin: 10px;*/
             }
-
             .input-wrap {
                 width: 500px;
                 margin: auto;
             }
-
             .button_center {
                 display: flex;
                 justify-content: center;
@@ -48,22 +45,25 @@
             $(document).ready(function () {
                 // index.html 로드가 완료되면 자동으로 showStar() 함수를 호출합니다.
             });
-
             // 골프장을 검색해서 검색결과를 보여준다
             function showGolflist() {
                 let name = $("#golf-name").val();
                 if (name === '') {
                     alert("골프장 이름을 입력해주세요")
                 } else {
-                    $("#input-box").show()
-                    $('#golflist-box').empty()
                     $.ajax({
                         type: "GET",
                         url: "/golf/list",
                         data: {'name_golf': name},
                         success: function (response) {
                             console.log(response);
+                            $('#golflist-box').empty()
                             let golfs = response['golf_list']
+                            if (golfs.length === 0) {
+                                alert('일치하는 골프장이 없습니다.')
+                                return
+                            }
+                            $("#input-box").show()
                             for (let i = 0; i < golfs.length; i++) {
                                 let golf = golfs[i]
                                 let name = golf['name']
@@ -84,7 +84,6 @@
                     });
                 }
             }
-
             // 음식종류 선택 완료 -> 골프장 검색완료 후 맛집추천리스트 페이지로 분개
             function search(lat, lng, name) {
                 let food = $('#order-count').val()
@@ -93,7 +92,7 @@
                     alert('음식종류를 선택해주세요')
                     return
                 }
-                location.href = `/search?lat=${lat}&lng=${lng}&food=${food}$&name=${name}`
+                location.href = `/search?lat=${lat}&lng=${lng}&food=${food}&name=${name}`
             }
         </script>
     </head>
