@@ -25,11 +25,12 @@
                 width: 500px;
                 border-radius: 20px;;
             }
+
             .golflist {
                 text-align: center;
                 /*margin: 10px;*/
-
             }
+
             .input-wrap {
                 width: 500px;
                 margin: auto;
@@ -47,7 +48,8 @@
             $(document).ready(function () {
                 // index.html 로드가 완료되면 자동으로 showStar() 함수를 호출합니다.
             });
-            // 코딩중
+
+            // 골프장을 검색해서 검색결과를 보여준다
             function showGolflist() {
                 let name = $("#golf-name").val();
                 if (name === '') {
@@ -58,7 +60,7 @@
                     $.ajax({
                         type: "GET",
                         url: "/golf/list",
-                        data: {'name_golf':name},
+                        data: {'name_golf': name},
                         success: function (response) {
                             console.log(response);
                             let golfs = response['golf_list']
@@ -67,22 +69,31 @@
                                 let name = golf['name']
                                 let url = golf['url']
                                 let address = golf['address']
+                                let lat = golf['lat']
+                                let lng = golf['lng']
                                 let tempHtml = `<tr>
                                                     <td>${name}</td>
                                                     <td>${address}</td>
                                                     <td><a href="${url}">${name}</a></td>
-                                                    <td>
-                                                        <form>
-                                                            <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
-                                                            <label for="vehicle1"></label>
-                                                        </form>
-                                                    </td>
+<!--                                                    <td><button onclick="search('${lat}', '${lng}')">선택</button></td>-->
+                                                    <td><button onclick="search('${lat}', '${lng}', '${name}')" class="btn btn-outline-secondary" type="button">선택</button></td>
                                                 </tr>`
                                 $('#golflist-box').append(tempHtml)
                             }
                         }
                     });
                 }
+            }
+
+            // 음식종류 선택 완료 -> 골프장 검색완료 후 맛집추천리스트 페이지로 분개
+            function search(lat, lng, name) {
+                let food = $('#order-count').val()
+                console.log(food, lat, lng, name)
+                if (food === '') {
+                    alert('음식종류를 선택해주세요')
+                    return
+                }
+                location.href = `/search?lat=${lat}&lng=${lng}&food=${food}$&name=${name}`
             }
         </script>
     </head>
@@ -92,6 +103,18 @@
                 <img id="image_style" src="../static/golfoodlog.png" alt="log image">
             </div>
             <div class="input-wrap">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text">음식종류</label>
+                    </div>
+                    <select class="custom-select" id="order-count">
+                        <option selected value="">-------선호하는 음식 선택-------</option>
+                        <option value="한식">한식</option>
+                        <option value="양식">양식</option>
+                        <option value="일식">일식</option>
+                        <option value="중식">중식</option>
+                    </select>
+                </div>
                 <div class="input-group mb-3">
                     <input type="text" class="form-control" id="golf-name" placeholder="골프장 명칭을 입력해 주세요"
                            aria-label="Recipient's username"
@@ -104,31 +127,16 @@
                     <table class="table">
                         <thead>
                         <tr>
-                            <th width="4%" scope="col">골프장</th>
-                            <th width="15%" scope="col">주소</th>
-                            <th width="4%" scope="col">URL</th>
-                            <th width="4%" scope="col">체크</th>
+                            <th width="5%" scope="col">골프장</th>
+                            <th width="10%" scope="col">주소</th>
+                            <th width="5%" scope="col">URL</th>
+                            <th width="5%" scope="col">확인</th>
                         </tr>
                         </thead>
                         <tbody id="golflist-box">
                         </tbody>
                     </table>
                 </div>
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <label class="input-group-text">음식종류</label>
-                    </div>
-                    <select class="custom-select" id="order-count">
-                        <option selected>-------선호하는 음식 선택-------</option>
-                        <option value="1">한식</option>
-                        <option value="2">양식</option>
-                        <option value="3">일식</option>
-                        <option value="4">중식</option>
-                    </select>
-                </div>
-            </div>
-            <div class="button_center">
-                <button onclick="location.href='search_main.html'" type="button" class="btn btn-danger">맛집찾기</button>
             </div>
         </div>
     </body>
