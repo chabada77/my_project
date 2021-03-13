@@ -3,9 +3,7 @@
     <head>
         <!-- Required meta tags -->
         <meta charset="UTF-8">
-        <!--<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">-->
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
               integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
@@ -22,20 +20,22 @@
         <title>골푸드맛집</title>
         <style>
             .wrap {
-                width: 1000px;
+                max-width: 1000px;
                 margin: 20px auto;
             }
-
             .food-columns {
                 display: grid;
                 grid-template-columns: repeat(3, 1fr);
                 row-gap: 8px;
                 column-gap: 8px;
             }
-
+            @media only screen and (max-width: 600px) {
+                .food-columns {
+                    grid-template-columns: repeat(1, 1fr);
+                }
+            }
         </style>
         <script>
-
             function distanceKilo(metres) {
                 var meter = Number(metres);
                 var km = meter / 1000;
@@ -46,11 +46,9 @@
                 let lat = '{{lat}}'
                 let lng = '{{lng}}'
                 let food = '{{food}}'
-                let name = '{name}}'
-
-                $('#change_golfjang').text('name');
-                $('#change_food').text('food');
-
+                let name = '{{name}}'
+                $('#change_golfjang').text(name);
+                $('#change_food').text(food);
                 console.log(lat, lng, food)
                 $.ajax({
                     type: 'GET',
@@ -63,8 +61,6 @@
                     },
                     success: function (res) {
                         $('#cards-box').empty()
-
-
                         let rows = res['documents']
                         for (let i = 0; i < rows.length; i++) {
                             let row = rows[i]
@@ -81,10 +77,10 @@
                             let road_address_name = row['road_address_name']
                             let temp = `<div class="card">
                                             <div class="card-body">
-                                                <a href="${place_url}" class="card-title">${place_name}</a>
+                                                <h5 ><a href="${place_url}" style="color:crimson" class="card-title">${place_name}</a></h5>
                                                 <p class="card-text">${address_name}</p>
                                                 <p class="card-text comment">${category_name}</p>
-                                                <p class="card-text comment">${distanceKilo(metres)}km</p>
+                                                <p class="card-text comment"><sapn style="color:mediumblue">${name}에서</sapn> : ${distanceKilo(metres)}km</p>
                                             </div>
                                         </div>`
                             $('#cards-box').append(temp)
@@ -97,12 +93,12 @@
     <body>
         <div class="wrap">
             <div class="jumbotron">
-                <h1 class="display-4">골푸드 추천 맛집</h1>
-                <p class="lead"><span id="change_golfjang">000</span>골프장 근처<span
-                        id="change_food">000</span>추천 맛집 리스트 입니다.</p>
+                <h1 class="display-4" style="color:black">골푸드 추천 맛집</h1>
+                <p class="lead"><span style="color:mediumblue" id="change_golfjang">000</span> 골프장 근처
+                    <span id="change_food" style="color:mediumblue">000</span>추천 맛집 리스트 입니다.</p>
                 <hr class="my-4">
                 <p class="lead">
-                    <button onclick="location.href='/'" id="btn-post-box" type="button" class="btn btn-primary">홈화면
+                    <button onclick="location.href='/'" id="btn-post-box" type="button" class="btn btn-primary">HOME
                     </button>
                     </button>
                 </p>
