@@ -54,7 +54,7 @@
                     alert("골프장 이름을 입력해주세요")
                 } else {
                     $("#input-box").show()
-                    $('#golflist-box > tbody').empty()
+                    $('#golflist-box').empty()
                     $.ajax({
                         type: "GET",
                         url: "/golf/list",
@@ -74,7 +74,7 @@
                                                     <td>
                                                         <form>
                                                             <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
-                                                            <label for="vehicle1">체크</label>
+                                                            <label for="vehicle1"></label>
                                                         </form>
                                                     </td>
                                                 </tr>`
@@ -104,24 +104,13 @@
                     <table class="table">
                         <thead>
                         <tr>
-                            <th scope="col">골프장</th>
-                            <th scope="col">주소</th>
-                            <th scope="col">URL</th>
-                            <th scope="col">확인</th>
+                            <th width="4%" scope="col">골프장</th>
+                            <th width="15%" scope="col">주소</th>
+                            <th width="4%" scope="col">URL</th>
+                            <th width="4%" scope="col">체크</th>
                         </tr>
                         </thead>
                         <tbody id="golflist-box">
-<!--                        <tr>-->
-<!--                            <td>골드CC</td>-->
-<!--                            <td>경기도 이천시</td>-->
-<!--                            <td>www.aaa.co.kr</td>-->
-<!--                            <td>-->
-<!--                                <form>-->
-<!--                                    <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">-->
-<!--                                    <label for="vehicle1"></label><br>-->
-<!--                                </form>-->
-<!--                            </td>-->
-<!--                        </tr>-->
                         </tbody>
                     </table>
                 </div>
@@ -139,7 +128,7 @@
                 </div>
             </div>
             <div class="button_center">
-                <button type="button" class="btn btn-danger">맛집찾기</button>
+                <button onclick="location.href='search_main.html'" type="button" class="btn btn-danger">맛집찾기</button>
             </div>
         </div>
     </body>
