@@ -13,8 +13,7 @@ db = client.golfood
 def home():
     return render_template('index.html')
 
-
-# API 역할을 하는 부분
+# 검색버튼 클릭시 골프장 리스트 보여주는 API 역할을 하는 부분
 @app.route('/golf/list', methods=['GET'])
 def show_golf():
     # name_receive = request.form['name_golf']
@@ -23,38 +22,22 @@ def show_golf():
     # 2. 성공하면 success 메시지와 함께 golf_list 목록을 클라이언트에 전달합니다.
     return jsonify({'result': 'success', 'golf_list': golfs})
 
-# @app.route('/api/like', methods=['POST'])
-# def like_star():
-#     # 1. 클라이언트가 전달한 name_give를 name_receive 변수에 넣습니다.
-#     name_receive = request.form['name_give']
-#
-#     # 2. mystar 목록에서 find_one으로 name이 name_receive와 일치하는 star를 찾습니다.
-#     # star = db.mystar.find_one({'name': name_receive})
-#
-#     # 3. star의 like 에 1을 더해준 new_like 변수를 만듭니다.
-#     # new_like = star['like'] + 1
-#
-#     # 4. mystar 목록에서 name이 name_receive인 문서의 like 를 new_like로 변경합니다.
-#     # 참고: '$set' 활용하기!
-#     # db.mystar.update_one({'name': name_receive}, {'$set': {'like': new_like}})
-#
-#     # 다른방법
-#     db.mystar.update_one({'name': name_receive}, {'$inc': {'like': 1}})
-#
-#     # 5. 성공하면 success 메시지를 반환합니다.
-#     return jsonify({'result': 'success', 'msg': '좋아요 완료!'})
-#
-#
-# @app.route('/api/delete', methods=['POST'])
-# def delete_star():
-#     # 1. 클라이언트가 전달한 name_give를 name_receive 변수에 넣습니다.
-#     name_receive = request.form['name_give']
-#
-#     # 2. mystar 목록에서 delete_one으로 name이 name_receive와 일치하는 star를 제거합니다.
-#     db.mystar.delete_one({'name': name_receive})
-#
-#     # 3. 성공하면 success 메시지를 반환합니다.
-#     return jsonify({'result': 'success', 'msg': f'{name_receive} 삭제완료!'})
+
+# 맛집찾기 버튼 클릭시 맛집 리스트 보여주는 API 역할을 하는 부분
+@app.route('/golfood/list', methods=['GET'])
+def golfood_list():
+    headers = {
+        'Authorization': 'KakaoAK 14e44457faa2e2f6e7c67e69b9d68832',
+    }
+    params = {
+        'y': '37.514322572335935',
+        'x': '127.06283102249932',
+        'radius': '20000',
+        'query': '국밥'
+    }
+    response = requests.get('https://dapi.kakao.com/v2/local/search/keyword.json', headers=headers, params=params)
+    data = response.json()
+    print(data)
 
 
 if __name__ == '__main__':
