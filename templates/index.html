@@ -4,6 +4,12 @@
         <!-- Required meta tags -->
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- OG meta tags -->
+        <meta property="og:title" content="Golfood(골푸드)"/>
+        <meta property="og:description" content="골프장 근처 맛집 추천"/>
+        <meta property="og:image" content="{{ url_for('static', filename='golfoodog.png') }}"/>
+
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
               integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
@@ -22,29 +28,30 @@
             #image_style {
                 display: block;
                 margin: 20px auto 30px auto;
-                width: 500px;
+                width: 400px;
                 border-radius: 20px;;
             }
+
             .golflist {
                 text-align: center;
                 /*margin: 10px;*/
             }
+
             .input-wrap {
-                width: 500px;
+                width: 400px;
                 margin: auto;
             }
-            .button_center {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                height: 50px;
-                margin: 10px auto;
+
+            #copyright {
+                margin-top: 10px;
+                text-align: center;
             }
         </style>
         <script>
             $(document).ready(function () {
                 // index.html 로드가 완료되면 자동으로 showStar() 함수를 호출합니다.
             });
+
             // 골프장을 검색해서 검색결과를 보여준다
             function showGolflist() {
                 let name = $("#golf-name").val();
@@ -84,6 +91,7 @@
                     });
                 }
             }
+
             // 음식종류 선택 완료 -> 골프장 검색완료 후 맛집추천리스트 페이지로 분개
             function search(lat, lng, name) {
                 let food = $('#order-count').val()
@@ -107,7 +115,7 @@
                         <label class="input-group-text">음식종류</label>
                     </div>
                     <select class="custom-select" id="order-count">
-                        <option selected value="">-------선호하는 음식 선택-------</option>
+                        <option selected value="">--------- 선호하는 음식 선택 ---------</option>
                         <option value="한식">한식</option>
                         <option value="양식">양식</option>
                         <option value="일식">일식</option>
@@ -135,6 +143,9 @@
                         <tbody id="golflist-box">
                         </tbody>
                     </table>
+                </div>
+                <div id="copyright">
+                    <h6>Copyright © Kim Tae Sung. All rights reserved.</h6>
                 </div>
             </div>
         </div>
