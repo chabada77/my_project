@@ -2,7 +2,7 @@ import requests
 from pymongo import MongoClient
 from flask import Flask, render_template, jsonify, request
 app = Flask(__name__)
-client = MongoClient('localhost', 27017)
+client = MongoClient('mongodb://test:test@localhost',27017)
 db = client.golfood
 
 # HTML 화면 보여주기
@@ -15,7 +15,8 @@ def search():
     lat = request.args.get('lat')
     lng = request.args.get('lng')
     food = request.args.get('food')
-    return render_template('search_main.html', lat=lat, lng=lng, food=food)
+    name = request.args.get('name')
+    return render_template('search_main.html', lat=lat, lng=lng, food=food, name=name)
 
 # 검색버튼 클릭시 골프장 리스트 보여주는 API 역할을 하는 부분
 @app.route('/golf/list', methods=['GET'])
@@ -39,7 +40,8 @@ def golfood_list():
         'y': lat,
         'x': lng,
         'radius': '20000',
-        'query': food
+        'query': food,
+        'sort': 'distance',
     }
     response = requests.get('https://dapi.kakao.com/v2/local/search/keyword.json', headers=headers, params=params)
     data = response.json()
