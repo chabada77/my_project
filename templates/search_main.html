@@ -18,94 +18,88 @@
                 integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
                 crossorigin="anonymous"></script>
         <title>골푸드맛집</title>
-
         <style>
             .wrap {
-                width: 700px;
+                width: 1000px;
                 margin: 20px auto;
             }
         </style>
         <script>
 
+            function distanceKilo(metres) {
+                var meter = Number(metres);
+                var km = meter / 1000;
+                return km.toFixed(1);
+            }
+
+
+            $(document).ready(function () {
+                let lat = '{{lat}}'
+                let lng = '{{lng}}'
+                let food = '{{food}}'
+                let name = '{name}}'
+
+                $('#change_golfjang').text('name');
+                $('#change_food').text('food');
+
+                console.log(lat, lng, food)
+                $.ajax({
+                    type: 'GET',
+                    url: '/golfood/list',
+                    data: {
+                        'lat': lat,
+                        'lng': lng,
+                        'food': food,
+                        'name': name,
+                    },
+                    success: function (res) {
+                        $('#cards-box').empty()
+
+
+                        let rows = res['documents']
+                        for (let i = 0; i < rows.length; i++) {
+                            let row = rows[i]
+                            console.log(row)
+                            let address_name = row['address_name']
+                            let category_group_code = row['category_group_code']
+                            let category_group_name = row['category_group_name']
+                            let category_name = row['category_name']
+                            let metres = row['distance']
+                            let id = row['id']
+                            let phone = row['phone']
+                            let place_name = row['place_name']
+                            let place_url = row['place_url']
+                            let road_address_name = row['road_address_name']
+                            let temp = `<div class="card">
+                                            <div class="card-body">
+                                                <a href="${place_url}" class="card-title">${place_name}</a>
+                                                <p class="card-text">${address_name}</p>
+                                                <p class="card-text comment">${category_name}</p>
+                                                <p class="card-text comment">${distanceKilo(metres)}km</p>
+                                            </div>
+                                        </div>`
+                            $('#cards-box').append(temp)
+                        }
+                    }
+                })
+            })
         </script>
     </head>
     <body>
         <div class="wrap">
             <div class="jumbotron">
                 <h1 class="display-4">골푸드 추천 맛집</h1>
-                <p class="lead">000 골프장 근처 (한식?) 추천 맛집 리스트 입니다.</p>
+                <p class="lead"><span id="change_golfjang">000</span>골프장 근처<span
+                        id="change_food">000</span>추천 맛집 리스트 입니다.</p>
                 <hr class="my-4">
                 <p class="lead">
-                    <button onclick="location.href='index.html'" id="btn-post-box" type="button" class="btn btn-primary">홈화면
+                    <button onclick="location.href='/'" id="btn-post-box" type="button" class="btn btn-primary">홈화면
+                    </button>
                     </button>
                 </p>
             </div>
-
             <div id="cards-box" class="card-columns">
-                <div class="card">
-                    <img class="card-img-top"
-                         src="이미지"
-                         alt="Card image cap">
-                    <div class="card-body">
-                        <a href="URL" class="card-title">식당이름</a>
-                        <p class="card-text">메뉴</p>
-                        <p class="card-text comment">식당설명</p>
-                    </div>
-                </div>
-                <div class="card">
-                    <img class="card-img-top"
-                         src="이미지"
-                         alt="Card image cap">
-                    <div class="card-body">
-                        <a href="URL" class="card-title">식당이름</a>
-                        <p class="card-text">메뉴</p>
-                        <p class="card-text comment">식당설명</p>
-                    </div>
-                </div>
-                <div class="card">
-                    <img class="card-img-top"
-                         src="이미지"
-                         alt="Card image cap">
-                    <div class="card-body">
-                        <a href="URL" class="card-title">식당이름</a>
-                        <p class="card-text">메뉴</p>
-                        <p class="card-text comment">식당설명</p>
-                    </div>
-                </div>
-                <div class="card">
-                    <img class="card-img-top"
-                         src="이미지"
-                         alt="Card image cap">
-                    <div class="card-body">
-                        <a href="URL" class="card-title">식당이름</a>
-                        <p class="card-text">메뉴</p>
-                        <p class="card-text comment">식당설명</p>
-                    </div>
-                </div>
-                <div class="card">
-                    <img class="card-img-top"
-                         src="이미지"
-                         alt="Card image cap">
-                    <div class="card-body">
-                        <a href="URL" class="card-title">식당이름</a>
-                        <p class="card-text">메뉴</p>
-                        <p class="card-text comment">식당설명</p>
-                    </div>
-                </div>
-                <div class="card">
-                    <img class="card-img-top"
-                         src="이미지"
-                         alt="Card image cap">
-                    <div class="card-body">
-                        <a href="URL" class="card-title">식당이름</a>
-                        <p class="card-text">메뉴</p>
-                        <p class="card-text comment">식당설명</p>
-                    </div>
-                </div>
             </div>
-
         </div>
-
-
     </body>
 </html>
