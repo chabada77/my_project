@@ -37,6 +37,16 @@
                 }
             }
 
+            .card-text {
+                display: flex;
+                align-items: center;
+            }
+
+            .comment {
+                display: flex;
+                align-items: center;
+            }
+
             #myBtn {
                 display: none;
                 position: fixed;
@@ -51,6 +61,18 @@
                 cursor: pointer;
                 padding: 15px;
                 border-radius: 4px;
+            }
+
+            .btn-color {
+                background-color: crimson;
+                color: white;
+                border-color: #86989B;
+            }
+
+            .btn-color:hover {
+                background-color: #727272;
+                color: white;
+                border-color: #86989B;
             }
 
         </style>
@@ -99,7 +121,7 @@
                                                 <h5 ><a href="${place_url}" style="color:crimson" class="card-title">${place_name}</a></h5>
                                                 <p class="card-text">${address_name}</p>
                                                 <p class="card-text comment">${category_name}</p>
-                                                <p class="card-text comment"><img src="../static/distance_icon.png" style="width:30px;height:30px;vertical-align:middle"><sapn style="color:mediumblue">${name}에서</sapn> : ${distanceKilo(metres)}km</p>
+                                                <p class="card-text comment"><img src="../static/distance_icon.png" alt=""><sapn style="color:mediumblue">${name}에서</sapn> : ${distanceKilo(metres)}km</p>
                                             </div>
                                         </div>`
                             $('#cards-box').append(temp)
@@ -108,15 +130,14 @@
                 })
             })
 
-            //Get the button
-            var mybutton = document.getElementById("myBtn");
-
+            //Get the button (상위 버튼 스크립트)
             // When the user scrolls down 20px from the top of the document, show the button
             window.onscroll = function () {
                 scrollFunction()
             };
 
             function scrollFunction() {
+                var mybutton = document.getElementById("myBtn");
                 if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
                     mybutton.style.display = "block";
                 } else {
@@ -140,14 +161,16 @@
                     <span id="change_food" style="color:mediumblue">000</span>추천 맛집 리스트 입니다.</p>
                 <hr class="my-4">
                 <p class="lead">
-                    <button onclick="location.href='/'" id="btn-post-box" type="button" class="btn btn-primary">HOME
+                    <button onclick="location.href='/'" id="btn-post-box" type="button"
+                            class="btn btn-primary btn-color">HOME
                     </button>
                     </button>
                 </p>
             </div>
             <div id="cards-box" class="food-columns"></div>
-            <div><button onclick="topFunction()" id="myBtn" title="Go to top">Top</button></div>
-            <div style="background-color:white;padding:30px 30px 2500px"></div>
+            <div>
+                <button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
+            </div>
         </div>
     </body>
 </html>
