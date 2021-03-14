@@ -53,11 +53,6 @@
                 border-radius: 4px;
             }
 
-            #myBtn:hover {
-                background-color: #555;
-            }
-
-
         </style>
         <script>
             function distanceKilo(metres) {
@@ -104,7 +99,7 @@
                                                 <h5 ><a href="${place_url}" style="color:crimson" class="card-title">${place_name}</a></h5>
                                                 <p class="card-text">${address_name}</p>
                                                 <p class="card-text comment">${category_name}</p>
-                                                <p class="card-text comment"><img src="../static/distance_icon.png" alt=""><sapn style="color:mediumblue">${name}에서</sapn> : ${distanceKilo(metres)}km</p>
+                                                <p class="card-text comment"><img src="../static/distance_icon.png" style="width:30px;height:30px;vertical-align:middle"><sapn style="color:mediumblue">${name}에서</sapn> : ${distanceKilo(metres)}km</p>
                                             </div>
                                         </div>`
                             $('#cards-box').append(temp)
