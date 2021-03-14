@@ -23,17 +23,41 @@
                 max-width: 1000px;
                 margin: 20px auto;
             }
+
             .food-columns {
                 display: grid;
                 grid-template-columns: repeat(3, 1fr);
                 row-gap: 8px;
                 column-gap: 8px;
             }
+
             @media only screen and (max-width: 600px) {
                 .food-columns {
                     grid-template-columns: repeat(1, 1fr);
                 }
             }
+
+            #myBtn {
+                display: none;
+                position: fixed;
+                bottom: 20px;
+                right: 30px;
+                z-index: 99;
+                font-size: 18px;
+                border: none;
+                outline: none;
+                background-color: red;
+                color: white;
+                cursor: pointer;
+                padding: 15px;
+                border-radius: 4px;
+            }
+
+            #myBtn:hover {
+                background-color: #555;
+            }
+
+
         </style>
         <script>
             function distanceKilo(metres) {
@@ -80,7 +104,7 @@
                                                 <h5 ><a href="${place_url}" style="color:crimson" class="card-title">${place_name}</a></h5>
                                                 <p class="card-text">${address_name}</p>
                                                 <p class="card-text comment">${category_name}</p>
-                                                <p class="card-text comment"><sapn style="color:mediumblue">${name}에서</sapn> : ${distanceKilo(metres)}km</p>
+                                                <p class="card-text comment"><img src="../static/distance_icon.png" alt=""><sapn style="color:mediumblue">${name}에서</sapn> : ${distanceKilo(metres)}km</p>
                                             </div>
                                         </div>`
                             $('#cards-box').append(temp)
@@ -88,6 +112,29 @@
                     }
                 })
             })
+
+            //Get the button
+            var mybutton = document.getElementById("myBtn");
+
+            // When the user scrolls down 20px from the top of the document, show the button
+            window.onscroll = function () {
+                scrollFunction()
+            };
+
+            function scrollFunction() {
+                if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                    mybutton.style.display = "block";
+                } else {
+                    mybutton.style.display = "none";
+                }
+            }
+
+            // When the user clicks on the button, scroll to the top of the document
+            function topFunction() {
+                document.body.scrollTop = 0;
+                document.documentElement.scrollTop = 0;
+            }
+
         </script>
     </head>
     <body>
@@ -104,6 +151,9 @@
                 </p>
             </div>
             <div id="cards-box" class="food-columns">
+            </div>
+            <div>
+                <button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
             </div>
         </div>
     </body>
